@@ -1,0 +1,48 @@
+#app{
+    background-image: url("/images/church.svg");
+    background-size: 100vh;
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+#appMaster{
+    background-image: url("/images/church.svg");
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.cabecalho{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card{
+background: rgba(255,255,255,0.8); !important;
+}
+
+.action{
+    width: 140px;
+}
+
+.avatarm {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.medico{
+    display: flex;
+}
+
+#imagem{
+    display: none; !important;
+}
+.label {
+    background-color: #3498db;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0px;
+    padding: 3px
+}
