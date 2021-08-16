@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PastoralController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +24,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::prefix('admin')->group(function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::resource('usuarios', UserController::class, ['except' => ['show','create','store']]);
+    Route::resource('pastorais', PastoralController::class, ['except' => ['show']]);
+});
+

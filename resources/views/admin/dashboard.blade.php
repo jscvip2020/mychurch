@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.appMaster')
+
+@section('titulo', ' - DashBoard')
 
 @section('content')
 <div class="container">

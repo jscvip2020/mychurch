@@ -14,6 +14,12 @@
 <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+<link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
+
+<link rel="stylesheet" href="{{asset('css/main.css')}}">
+<link rel="stylesheet" href="{{asset('css/sidebar-themes.css')}}">
+
 <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
 
 @yield('styles')

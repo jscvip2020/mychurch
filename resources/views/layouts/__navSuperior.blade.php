@@ -19,26 +19,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                @can('especialidade-list')
-                    <li class="nav-item {{ (request()->is('especialidades*')) ? 'active' : '' }}">
-                        <a href="{{ route('especialidades.index') }}" class="nav-link">Especialidades</a>
-                    </li>
-                @endcan
-                @can('medico-list')
-                    <li class="nav-item {{ (request()->is('medicos*')) ? 'active' : '' }}">
-                        <a href="{{ route('medicos.index') }}" class="nav-link">Médicos</a>
-                    </li>
-                @endcan
-                @can('convenio-list')
-                    <li class="nav-item {{ (request()->is('convenios*')) ? 'active' : '' }}">
-                        <a href="{{ route('convenios.index') }}" class="nav-link">Convênios</a>
-                    </li>
-                @endcan
-                @can('paciente-list')
-                    <li class="nav-item {{ (request()->is('pacientes*')) ? 'active' : '' }}">
-                        <a href="{{ route('pacientes.index') }}" class="nav-link">Pacientes</a>
-                    </li>
-                @endcan
 
             </ul>
 
