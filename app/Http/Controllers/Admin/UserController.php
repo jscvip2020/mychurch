@@ -10,9 +10,10 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    private $model = User::class;
-    private $folder = 'admin.usuarios';
-    private $name = 'user';
+    protected $model = User::class;
+    protected $folder = 'admin.usuarios';
+    protected $name = 'user';
+    protected $plural = 'usuarios';
 
     function __construct()
     {
@@ -77,9 +78,9 @@ class UserController extends Controller
         $data->assignRole($request->input('roles'));
 
         if($action){
-            return redirect()->route('usuarios.index')->with('success','Atualizado com sucesso!!!');
+            return redirect()->route($this->plural . '.index')->with('success','Atualizado com sucesso!!!');
         }else{
-            return redirect()->route('usuarios.index')->with('error','Não foi possível atualizar!!!');
+            return redirect()->route($this->plural . '.index')->with('error','Não foi possível atualizar!!!');
         }
     }
 
@@ -92,9 +93,9 @@ class UserController extends Controller
         $data = $this->model::findOrFail($id);
         $action = $data->delete();
         if($action){
-            return redirect()->route('usuarios.index')->with('success','Deletado com sucesso!!!');
+            return redirect()->route($this->plural . '.index')->with('success','Deletado com sucesso!!!');
         }else{
-            return redirect()->route('usuarios.index')->with('error','Não foi possível deletar!!!');
+            return redirect()->route($this->plural . '.index')->with('error','Não foi possível deletar!!!');
         }
     }
 }

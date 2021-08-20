@@ -18,7 +18,7 @@
                         <h2>Lista de Pastorais</h2>
                         <div>
                             @can('user-create')
-                                <a href="register" class="btn btn-sm btn-success"><i class="fa fa-plus">
+                                <a href="{{route('pastorais.create')}}" class="btn btn-sm btn-success"><i class="fa fa-plus">
                                         Adicionar</i></a>
                             @endcan
                         </div>
@@ -32,6 +32,7 @@
                                 <th></th>
                                 <th></th>
                                 <th>Nome</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -46,6 +47,15 @@
                                         @endif
                                     </td>
                                     <td class="align-content-center">{{ $row->nome }}</td>
+                                    <td>
+                                        <a class="{{ (!$row->status) ? 'text-danger' : 'text-success'}}" href="{{ route('pastorais.status',[$row->status,$row->id]) }}">
+                                            @if($row->status)
+                                                <i class="fa fa-2x fa-check-circle"></i>
+                                            @else
+                                                <i class="fa fa-2x fa-times-circle"></i>
+                                            @endif
+                                        </a>
+                                    </td>
                                     <td class="action">
                                         @can('pastoral-edit')
                                             <a href="{{ route('pastorais.edit',$row->id) }}"

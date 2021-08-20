@@ -34,6 +34,7 @@
                                 <th>Usuário</th>
                                 <th>Email</th>
                                 <th>Regras</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -46,6 +47,15 @@
                                     <td>{{ $row->usuario }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>@foreach($row->roles as $role) <a href="{{ route('roles.show', $role->id) }}" class="badge rounded-pill bg-success">{{$role->name}}</a>@endforeach</td>
+                                    <td>
+                                        <a class="{{ (!$row->status) ? 'text-danger' : 'text-success'}}" href="{{ route('usuarios.status',[$row->status,$row->id]) }}">
+                                            @if($row->status)
+                                                <i class="fa fa-2x fa-check-circle"></i>
+                                            @else
+                                                <i class="fa fa-2x fa-times-circle"></i>
+                                                @endif
+                                        </a>
+                                    </td>
                                     <td class="action">
                                         @can('user-edit')
                                             <a href="{{ route('usuarios.edit',$row->id) }}"

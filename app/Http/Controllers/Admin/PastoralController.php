@@ -6,23 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Pastoral;
 use Illuminate\Http\Request;
 use Image;
+use File;
 
 class PastoralController extends Controller
 {
 
-    private $model = Pastoral::class;
-    private $folder = 'admin.pastorais';
-    private $name = 'pastorais';
+    protected $model = Pastoral::class;
+    protected $folder = 'admin.pastorais';
+    protected $name = 'pastoral';
+    protected $plural = 'pastorais';
 
     /**
      * PastoralController constructor.
      */
     function __construct()
     {
-        $this->middleware('permission:pastoral-list|pastoral-create|pastoral-edit|pastoral-delete', ['only' => ['index']]);
-        $this->middleware('permission:pastoral-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:pastoral-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:pastoral-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:'.$this->name.'-list|'.$this->name.'-create|'.$this->name.'-edit|'.$this->name.'-delete', ['only' => ['index']]);
+        $this->middleware('permission:'.$this->name.'-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:'.$this->name.'-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:'.$this->name.'-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -49,18 +51,52 @@ class PastoralController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->folder.'.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nome' => 'required|string|max:255',
+            'imagem' => 'nullable|mimes:jpg,png',
+        ]);
+
+        $action = $this->model::create([
+            'nome' => $request->nome,
+        ]);
+        if($action){
+            $image = $request->file('imagem');
+            $data = $this->model::findOrFail($action->id);
+            if($image) {
+                $imagenome = 'imagem_' . $data->id . '.' . $image->extension();
+                $success = $data->update(['imagem' => $imagenome]);
+
+                if ($success) {
+                    $img = Image::make($image->path())->resize(170, 170)->save('images/pastoral/' . $imagenome);
+
+                } else {
+                    return redirect()->route($this->plural . '.index')->with('error', 'Não foi possível adicionar o IMAGEM!!!');
+                }
+                if ($img) {
+                    return redirect()->route($this->plural . '.index')->with('success', 'IMAGEM adicionada com sucesso!!!');
+                } else {
+                    return redirect()->route($this->plural . '.index')->with('error', 'Não foi possível adicionar o IMAGEM!!!');
+                }
+            }
+
+            return redirect()->route($this->plural.'.index')->with('success', 'CRIADO com sucesso!!');
+        }else {
+            return redirect()->route($this->plural . '.index')->with('success', 'CRIADO com sucesso!!');
+        }
+
     }
 
 
@@ -104,17 +140,17 @@ class PastoralController extends Controller
                     $img = Image::make($image->path())->resize(170, 170)->save('images/pastoral/' . $imagenome);
 
                 } else {
-                    return redirect()->route($this->name . '.index')->with('error', 'Não foi possível trocar o IMAGEM!!!');
+                    return redirect()->route($this->plural . '.index')->with('error', 'Não foi possível trocar o IMAGEM!!!');
                 }
                 if ($img) {
-                    return redirect()->route($this->name . '.index')->with('success', 'IMAGEM trocado com sucesso!!!');
+                    return redirect()->route($this->plural . '.index')->with('success', 'IMAGEM trocado com sucesso!!!');
                 } else {
-                    return redirect()->route($this->name . '.index')->with('error', 'Não foi possível trocar o IMAGEM!!!');
+                    return redirect()->route($this->plural . '.index')->with('error', 'Não foi possível trocar o IMAGEM!!!');
                 }
             }
-            return redirect()->route($this->name . '.index')->with('success','Atualizado com sucesso!!!');
+            return redirect()->route($this->plural . '.index')->with('success','Atualizado com sucesso!!!');
         }else{
-            return redirect()->route($this->name . '.index')->with('error','Não foi possível atualizar!!!');
+            return redirect()->route($this->plural . '.index')->with('error','Não foi possível atualizar!!!');
         }
     }
 
@@ -126,6 +162,23 @@ class PastoralController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $action = '';
+
+        $data = $this->model::findOrFail($id);
+        $file_path = "images/pastoral/" . $data->imagem;
+        if(!$data->imagem){
+            $action = $data->delete();
+        }else {
+            if (file_exists($file_path)) {
+                if (File::delete($file_path)) {
+                    $action = $data->delete();
+                }
+            }
+        }
+        if ($action) {
+            return redirect()->route($this->plural.'.index')->with('success', "DELETADO com sucesso!");
+        } else {
+            return redirect()->route($this->plural.'.index')->with('error', "Não foi possível DELETAR!");
+        }
     }
 }

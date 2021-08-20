@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.welcome');
 });
 
 Auth::routes();
@@ -30,6 +30,9 @@ Route::prefix('admin')->group(function(){
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('usuarios', UserController::class, ['except' => ['show','create','store']]);
+    Route::get('usuarios/{status}/{id}',[UserController::class,'status'])->name('usuarios.status');
+
     Route::resource('pastorais', PastoralController::class, ['except' => ['show']]);
+    Route::get('pastorais/{status}/{id}',[PastoralController::class,'status'])->name('pastorais.status');
 });
 

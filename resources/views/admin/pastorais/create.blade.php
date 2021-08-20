@@ -8,24 +8,25 @@
 
 @extends('layouts.appMaster')
 
-@section('titulo', ' - Editando Pastoral')
+@section('titulo', ' - Criando Pastoral')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-info text-white">{{ __('Editando...') }}</div>
+                    <div class="card-header bg-info text-white">{{ __('Criando...') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('pastorais.update',$row->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('pastorais.store') }}" enctype="multipart/form-data">
                             @csrf
-                            @method('put')
                             <div class="form-group row">
                                 <label for="nome" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="nome" type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" value="{{ old('nome') ? old('nome') : $row->nome }}" required autofocus>
+                                    <input id="nome" type="text"
+                                           class="form-control @error('nome') is-invalid @enderror" name="nome"
+                                           value="{{ old('nome') }}" required autofocus>
 
                                     @error('nome')
                                     <span class="invalid-feedback" role="alert">
@@ -35,8 +36,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="imagem" class="col-md-4 col-form-label text-md-right">{{ __('Imagem') }}</label>
-
+                                <label for="imagem"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Imagem') }}</label>
                                 <div class="col-md-6">
                                     <!-- image-preview-filename input [CUT FROM HERE]-->
                                     <div class="input-group image-preview @error('imagem') is-invalid @enderror">
@@ -58,7 +59,6 @@
                                             </div>
                                         </span>
                                     </div><!-- /input-group image-preview [TO HERE]-->
-
                                     @error('imagem')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,7 +70,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-5">
                                     <button type="submit" class="btn btn-info text-white">
-                                        {{ __('Atualiza') }}
+                                        {{ __('Salvar') }}
                                     </button>
                                 </div>
                             </div>

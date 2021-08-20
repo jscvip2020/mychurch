@@ -17,6 +17,7 @@ class CreatePastoralsTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('imagem')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

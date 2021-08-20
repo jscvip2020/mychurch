@@ -9,5 +9,5 @@ class Pastoral extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'imagem'];
+    protected $fillable = ['nome', 'imagem', 'status'];
 }
