@@ -14,8 +14,7 @@
   --red: #e3342f;
   --orange: #f6993f;
   --yellow: #ffed4a;
-  /*--green: #38c172;*/
-  --green: #00BFA6;
+  --green: #38c172;
   --teal: #4dc0b5;
   --cyan: #6cb2eb;
   --white: #fff;
@@ -23,9 +22,8 @@
   --gray-dark: #343a40;
   --primary: #3490dc;
   --secondary: #6c757d;
-  /*--success: #38c172;*/
-  --success: #00BFA6;
-  --info: #4571BF;
+  --success: #38c172;
+  --info: #6cb2eb;
   --warning: #ffed4a;
   --danger: #e3342f;
   --light: #f8f9fa;
@@ -1656,7 +1654,7 @@ pre code {
 .table th,
 .table td {
   padding: 0.75rem;
-  vertical-align: center;
+  vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
 .table thead th {
@@ -2500,8 +2498,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: var(--success);
-  border-color: var(--success);
+  background-color: #38c172;
+  border-color: #38c172;
 }
 .btn-success:hover {
   color: #fff;
@@ -4282,8 +4280,7 @@ input[type=button].btn-block {
 .navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .nav-link.active {
-  color: rgba(255, 255, 255, 1);
-  background-color: var(--info);
+  color: rgba(0, 0, 0, 0.9);
 }
 .navbar-light .navbar-toggler {
   color: rgba(0, 0, 0, 0.5);
@@ -6124,7 +6121,7 @@ button.bg-secondary:focus {
 }
 
 .bg-success {
-  background-color: var(--success) !important;
+  background-color: #38c172 !important;
 }
 
 a.bg-success:hover, a.bg-success:focus,
