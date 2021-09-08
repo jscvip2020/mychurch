@@ -15,7 +15,7 @@
 <script src="{{asset('js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <script src="{{ asset('js/main.js')}}"></script>
-<script src="{{ asset('js/inputfile.js')}}"></script>
+
 
 {{-- JS FrontEnd --}}
 <script src="{{ asset('js/owl.carousel.min.js')}}"></script>

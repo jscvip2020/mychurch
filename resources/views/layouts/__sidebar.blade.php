@@ -126,6 +126,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('rede-list')
+                    <li class="{{ (request()->route()->getName()=='redes.index' OR request()->route()->getName()=='redes.create' OR request()->route()->getName()=='redes.edit' OR request()->route()->getName()=='redes.show')? 'active' :'' }}">
+                        <a href="{{ route('redes.index') }}">
+                            <i class="fas fa-network-wired"></i>
+                            <span class="menu-text">Redes</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
         <!-- sidebar-menu  -->

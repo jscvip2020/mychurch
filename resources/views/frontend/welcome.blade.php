@@ -8,7 +8,7 @@
 
     @include('layouts.__ultimasNoticias')
 
-    @include('layouts.__videos')
+{{--    @include('layouts.__videos')--}}
 
     @include('layouts.__corpo')
 

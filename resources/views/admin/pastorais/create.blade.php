@@ -39,26 +39,9 @@
                                 <label for="imagem"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Imagem') }}</label>
                                 <div class="col-md-6">
-                                    <!-- image-preview-filename input [CUT FROM HERE]-->
-                                    <div class="input-group image-preview @error('imagem') is-invalid @enderror">
-                                        <input type="text" class="form-control image-preview-filename"
-                                               disabled="disabled">
-                                        <!-- don't give a name === doesn't send on POST/GET -->
-                                        <span class="input-group-btn">
-                                            <!-- image-preview-clear button -->
-                                            <button type="button" class="btn btn-default image-preview-clear"
-                                                    style="display:none;">
-                                                <span class="fa fa-times"></span> Clear
-                                            </button>
-                                            <!-- image-preview-input -->
-                                            <div class="btn btn-light image-preview-input">
-                                                <span class="fa fa-folder-open"></span>
-                                                <span class="image-preview-input-title">Browse</span>
-                                                <input type="file" name="imagem"/>
-                                                <!-- rename it -->
-                                            </div>
-                                        </span>
-                                    </div><!-- /input-group image-preview [TO HERE]-->
+                                    <input type="file" class="form-control-file @error('imagem') is-invalid @enderror"
+                                           name="imagem">
+                                    <img class="img_inputFile">
                                     @error('imagem')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -80,4 +63,32 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(input).next()
+                        .attr('src', e.target.result)
+                };
+                reader.readAsDataURL(input.files[0]);
+                $('.img_inputFile').show();
+            }
+            else {
+                $('.img_inputFile').hide();
+                var img = input.value;
+                $(input).next().attr('src', img);
+            }
+        }
+
+        $('input[type=file]').on("change", function () {
+            $('input[type=file]').each(function (index) {
+                if ($('input[type=file]').eq(index).val() != "") {
+                    readURL(this);
+                }
+            });
+        });
+    </script>
 @endsection

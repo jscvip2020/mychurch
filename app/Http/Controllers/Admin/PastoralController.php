@@ -70,7 +70,7 @@ class PastoralController extends Controller
         ]);
 
         $action = $this->model::create([
-            'nome' => $request->nome,
+            'nome' => $request->nome
         ]);
         if($action){
             $image = $request->file('imagem');

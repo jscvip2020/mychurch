@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PastoralController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RedeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontEnd\WelcomeController;
@@ -33,5 +34,8 @@ Route::prefix('admin')->group(function(){
 
     Route::resource('pastorais', PastoralController::class, ['except' => ['show']]);
     Route::get('pastorais/{status}/{id}',[PastoralController::class,'status'])->name('pastorais.status');
+
+    Route::resource('redes', RedeController::class, ['except' => ['show']]);
+    Route::get('redes/{status}/{id}',[RedeController::class,'status'])->name('redes.status');
 });
 

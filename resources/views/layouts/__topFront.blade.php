@@ -19,7 +19,7 @@
             </div>
             <div class="text-center d-inline-block">
                 <a class="fh5co_display_table">
-                    <div class="fh5co_verticle_middle"><i class="fa fa-linkedin text-dark"></i></div>
+                    <div class="fh5co_verticle_middle"><i class="fa fa-linkedin"></i></div>
                 </a>
             </div>
             <div class="text-center d-inline-block">
@@ -37,15 +37,7 @@
                     <div class="fh5co_verticle_middle"><i class="fa fa-facebook"></i></div>
                 </a>
             </div>
-            <!--<div class="d-inline-block text-center"><img src="images/country.png" alt="img" class="fh5co_country_width"/></div>-->
-            <div class="d-inline-block text-center dd_position_relative ">
-                <select class="form-control fh5co_text_select_option">
-                    <option>English</option>
-                    <option>French</option>
-                    <option>German</option>
-                    <option>Spanish</option>
-                </select>
-            </div>
+
             <div class="clearfix"></div>
         </div>
     </div>
