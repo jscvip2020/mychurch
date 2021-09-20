@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NoticiaController;
 use App\Http\Controllers\Admin\PastoralController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RedeController;
@@ -37,5 +38,11 @@ Route::prefix('admin')->group(function(){
 
     Route::resource('redes', RedeController::class, ['except' => ['show']]);
     Route::get('redes/{status}/{id}',[RedeController::class,'status'])->name('redes.status');
+
+    Route::resource('noticias', NoticiaController::class);
+    Route::get('noticias/{status}/{id}',[NoticiaController::class,'status'])->name('noticias.status');
+    Route::get('noticias/{small}/{id}/destaque',[NoticiaController::class,'pequena'])->name('noticias.destaque');
+    Route::get('noticias/{big}/{id}/principal',[NoticiaController::class,'grande'])->name('noticias.principal');
+
 });
 

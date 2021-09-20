@@ -6,74 +6,20 @@
  * Time: 12:30
  */ ?>
 
-<nav id="sidebar" class="sidebar-wrapper">
-    <div class="sidebar-content">
-        <!-- sidebar-brand  -->
-        <div class="sidebar-item sidebar-brand">
-            <a href="{{ route('dashboard') }}">{{ config('app.name', 'MyChurch 1.0') }}</a>
-        </div>
-        <!-- sidebar-header  -->
-        <div class="sidebar-item sidebar-header d-flex flex-nowrap">
-            <div class="user-pic">
-                <img class="img-responsive img-rounded" src="{{asset('images/user.jpg')}}" alt="usuario">
-            </div>
-            <div class="user-info">
-                        <span class="user-name">
-                            {{ Auth::user()->name }}
-                        </span>
-                <span class="user-role">
-                @if(!empty(Auth::user()->getRoleNames()))
-                        @foreach(Auth::user()->getRoleNames() as $v)
-                            {{ $v }}
-                        @endforeach
-                    @endif
-                </span>
-                <span class="user-status">
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                       document.getElementById('logout-form').submit();">
-                        <i class="fa fa-door-open"></i> {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </span>
-            </div>
-        </div>
-        <!-- sidebar-search  -->
-        <?php
-        $index = explode(".", request()->route()->getName());
-        //dd($index);
-        ?>
-        @if($index[0]!="")
-            @if(isset($index[1]))
-                @if($index[1]=='index')
-                    <div class="sidebar-item sidebar-search">
-                        <div>
-                            <form action="{{ route(request()->route()->getName()) }}" method="get">
-                                <div class="input-group">
 
-                                    <input type="text" class="form-control search-menu" name="search"
-                                           placeholder="buscar {{ $index[0] }}...">
-                                    <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-            @endif
-        @endif
-    @endif
+<!-- Sidebar -->
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('welcome') }}" target="_blank">
+        <div class="sidebar-brand-icon">
+            <img src="{{ asset('images/church.svg') }}" width="100%" alt="logo {{ config('app.name', 'MyChurch 1.0') }}">
+        </div>
+        <div class="sidebar-brand-text mx-3">{{ config('app.name', 'MyChurch 1.0') }}</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+            <div class="text-center mt-2">Menu</div></a>
+    <hr class="sidebar-divider">
     <!-- sidebar-menu  -->
-        <div class=" sidebar-item sidebar-menu">
-            <ul>
-                <li class="header-menu">
-                    <span>General</span>
-                </li>
-                <li class="sidebar-dropdown {{ (
+    <li class="nav-item {{ (
                 request()->route()->getName()=='usuarios.index' OR
                 request()->route()->getName()=='usuarios.create' OR
                 request()->route()->getName()=='usuarios.edit' OR
@@ -85,57 +31,67 @@
                 request()->route()->getName()=='permissions.create' OR
                 request()->route()->getName()=='permissions.edit' OR
                 request()->route()->getName()=='permissions.show')? 'active' :'' }}">
-                    <a href="#">
-                        <i class="fa fa-key"></i>
-                        <span class="menu-text">Controle de acesso</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
+           aria-expanded="true" aria-controls="collapseBootstrap">
+            <i class="fa fa-key"></i>
+            <span>Controle de acesso</span>
+        </a>
+        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('user-list')
+                    <a class="collapse-item {{ (request()->route()->getName()=='usuarios.index' OR request()->route()->getName()=='usuarios.create' OR request()->route()->getName()=='usuarios.edit')? 'active' :'' }}"
+                       href="{{ route('usuarios.index') }}">
+                        <i class="fa fa-user"></i>
+                        <span class="menu-text">Usuários</span>
                     </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            @can('user-list')
-                                <li class="{{ (request()->route()->getName()=='usuarios.index' OR request()->route()->getName()=='usuarios.create' OR request()->route()->getName()=='usuarios.edit')? 'active' :'' }}">
-                                    <a href="{{ route('usuarios.index') }}">
-                                        <i class="fa fa-user"></i>
-                                        <span class="menu-text">Usuários</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('role-list')
-                                <li class="{{ (request()->route()->getName()=='roles.index' OR request()->route()->getName()=='roles.create' OR request()->route()->getName()=='roles.edit' OR request()->route()->getName()=='roles.show')? 'active' :'' }}">
-                                    <a href="{{ route('roles.index') }}">
-                                        <i class="fa fa-book"></i>
-                                        <span class="menu-text">Regras</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('permission-list')
-                                <li class="{{ (request()->route()->getName()=='permissions.index' OR request()->route()->getName()=='permissions.create' OR request()->route()->getName()=='permissions.edit' OR request()->route()->getName()=='permissions.show')? 'active' :'' }}">
-                                    <a href="{{ route('permissions.index') }}">
-                                        <i class="fa fa-book"></i>
-                                        <span class="menu-text">Permissões</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
-                @can('pastoral-list')
-                    <li class="{{ (request()->route()->getName()=='pastorais.index' OR request()->route()->getName()=='pastorais.create' OR request()->route()->getName()=='pastorais.edit' OR request()->route()->getName()=='pastorais.show')? 'active' :'' }}">
-                        <a href="{{ route('pastorais.index') }}">
-                            <i class="fa fa-users"></i>
-                            <span class="menu-text">Pastorais</span>
-                        </a>
-                    </li>
                 @endcan
-                @can('rede-list')
-                    <li class="{{ (request()->route()->getName()=='redes.index' OR request()->route()->getName()=='redes.create' OR request()->route()->getName()=='redes.edit' OR request()->route()->getName()=='redes.show')? 'active' :'' }}">
-                        <a href="{{ route('redes.index') }}">
-                            <i class="fas fa-network-wired"></i>
-                            <span class="menu-text">Redes</span>
-                        </a>
-                    </li>
+                @can('role-list')
+                    <a class="collapse-item {{ (request()->route()->getName()=='roles.index' OR request()->route()->getName()=='roles.create' OR request()->route()->getName()=='roles.edit' OR request()->route()->getName()=='roles.show')? 'active' :'' }}"
+                       href="{{ route('roles.index') }}">
+                        <i class="fa fa-book"></i>
+                        <span class="menu-text">Regras</span>
+                    </a>
                 @endcan
-            </ul>
+                @can('permission-list')
+                    <a class="collapse-item {{ (request()->route()->getName()=='permissions.index' OR request()->route()->getName()=='permissions.create' OR request()->route()->getName()=='permissions.edit' OR request()->route()->getName()=='permissions.show')? 'active' :'' }}"
+                       href="{{ route('permissions.index') }}">
+                        <i class="fa fa-book"></i>
+                        <span class="menu-text">Permissões</span>
+                    </a>
+                @endcan
+            </div>
         </div>
-        <!-- sidebar-menu  -->
-    </div>
-</nav>
+    </li>
+    <hr class="sidebar-divider">
+    @can('pastoral-list')
+        <li class="nav-item  {{ (request()->route()->getName()=='pastorais.index' OR request()->route()->getName()=='pastorais.create' OR request()->route()->getName()=='pastorais.edit' OR request()->route()->getName()=='pastorais.show')? 'active' :'' }}">
+            <a class="nav-link" href="{{ route('pastorais.index') }}">
+                <i class="fa fa-users"></i>
+                <span class="menu-text">Pastorais</span>
+            </a>
+        </li>
+    @endcan
+    @can('rede-list')
+        <li class="nav-item {{ (request()->route()->getName()=='redes.index' OR request()->route()->getName()=='redes.create' OR request()->route()->getName()=='redes.edit' OR request()->route()->getName()=='redes.show')? 'active' :'' }}">
+            <a class="nav-link" href="{{ route('redes.index') }}">
+                <i class="fas fa-network-wired"></i>
+                <span class="menu-text">Redes</span>
+            </a>
+        </li>
+    @endcan
+    @can('noticia-list')
+        <li class="nav-item {{ (request()->route()->getName()=='noticias.index' OR request()->route()->getName()=='noticias.create' OR request()->route()->getName()=='noticias.edit' OR request()->route()->getName()=='noticias.show')? 'active' :'' }}">
+            <a class="nav-link" href="{{ route('noticias.index') }}">
+                <i class="fas fa-newspaper"></i>
+                <span class="menu-text">Notícias</span>
+            </a>
+        </li>
+    @endcan
+
+    <hr class="sidebar-divider">
+    <div class="version" >JS'Cordeiro Programas - Version 1.0</div>
+    <!-- sidebar-menu  -->
+
+</ul>
+<!-- Sidebar -->

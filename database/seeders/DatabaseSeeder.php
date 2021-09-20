@@ -13,11 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-           PermissionTableSeeder::class,
-           SuperAdminUserTableSeeder::class,
-           PastoralTableSeeder::class,
-        ]);
-         \App\Models\User::factory(10)->create();
+//        $this->call([
+//           PermissionTableSeeder::class,
+//           SuperAdminUserTableSeeder::class,
+//           PastoralTableSeeder::class,
+//        ]);
+//         \App\Models\User::factory(10)->create();
+         \App\Models\Noticia::factory(97)->create();
     }
 }

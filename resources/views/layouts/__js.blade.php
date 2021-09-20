@@ -6,15 +6,13 @@
  * Time: 12:26
  */ ?>
 
-<!-- Modernizr JS -->
-<script src="{{ asset('js/modernizr-3.5.0.min.js') }}"></script>
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="{{asset('js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
-<script src="{{ asset('js/main.js')}}"></script>
+<script src="{{ asset('js/app.js')}}"></script>
 
 
 {{-- JS FrontEnd --}}

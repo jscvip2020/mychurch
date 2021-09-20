@@ -52,3 +52,11 @@ img.img_inputFile {
     height: 170px;
     display: none;
 }
+img.img_inputFileRet {
+    position: absolute;
+    top: -50px;
+    left: 400px;
+    width: 267px;
+    height: 170px;
+    display: none;
+}
